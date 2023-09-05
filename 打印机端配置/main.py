@@ -8,7 +8,7 @@ sys.path.append("..")
 
 REPORT_TOPIC = 'data'  # 主题
 file_name = "weight"
-server_add = "192.168.6.114"
+server_add = "你的mqtt服务器地址"
 
 def on_connect(client, userdata, flags, rc):
     print('connected to mqtt with resurt code ', rc)
