@@ -2,8 +2,6 @@
 
 # 我的技术技术很一般代码更多是到处借鉴整合而来，请多包容指正，<u>***并不能保证在你那边运行没有BUG***</u>
 
-
-
 ## 我做了什么
 
 - 实现了基础功能
@@ -103,7 +101,7 @@ docker-compose up -d
 
 ###### ESP32端
 
-1. 推荐使用安装好有PlatformIO的VSCode直接在插件内部打开工程（具体安装方法直接百度即可非常之简单没有坑）
+1. 推荐使用安装好有PlatformIO的VSCode直接在插件内部打开工程（具体安装方法直接百度即可非常之简单没有坑）等待所有配置加载完成并且下载好所需要的开发板库以及轮子
 
 2. 进入到`ESP源码/src`目录下找到main.cpp，根据提示进行针对你自己的网络还近进行修改
 
@@ -117,14 +115,26 @@ const char *mqttPassword = "你的MQTT登录密码";
 const char *mqtt_topic = "data";
 ```
 
-3. 在保证修改完成并且无误之后可以插上esp32并且来到VSCode左下角，选择PlatformIO:Upload进行编译上传
+3. 在第一次拿到HX711的时候注意将设置为True并且根据以下刷入esp32并且根据串口数据提示进行去皮计算，在计算完成之后改成false后即可
 
-4. 根据源码中的引脚定义，进行esp32模块与hx711的链接，这里推荐使用5v供给HX711，来降低对于AMS1117的负载
-   
-   ```cpp
-   const int LOADCELL_DOUT_PIN = 5;
-   const int LOADCELL_SCK_PIN = 18;
-   ```
+```cpp
+#define setCalibration true
+```
+
+- 通过(reading)/(known weight)的方式计算出CALIBRATION_FACTOR并将其填入即可
+
+```cpp
+#define CALIBRATION_FACTOR 420.88 //这里需要换成你自己测量之后的数据 测算公式 ： 结果 / 已知物体重量
+```
+
+- 在保证修改完成并且无误之后可以插上esp32并且来到VSCode左下角，选择PlatformIO:Upload进行编译上传
+
+- 根据源码中的引脚定义，进行esp32模块与hx711的链接，这里推荐使用5v供给HX711，来降低对于AMS1117的负载
+
+```cpp
+const int LOADCELL_DOUT_PIN = 5;
+const int LOADCELL_SCK_PIN = 18;
+```
 
 ##### 打印机端
 
@@ -159,3 +169,9 @@ max_temp: 11000          #上限
 ```
 
 ### 没了就这点儿玩意儿，其实也不是非得需要再弄一个服务器这样，市面上目前有很多提供服务的服务商，直接购买他们的服务再进行对接可以更好的更高效的实现效果。
+
+### 以后可能会实现：
+
+- 尽可能的减少ESP32端的功耗，实现除了使用电源dcdc降压以外的另外其他供电方式
+
+- 增添其他外设，试图整点花活儿
