@@ -1,0 +1,120 @@
+/* 重置一些默认样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 设置页面背景颜色 */
+body {
+    background-color: #f0f0f0;
+    display: flex;
+    flex-wrap: wrap; /* 允许表单容器换行 */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 包含表单的容器 */
+.form-container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px; /* 添加间距 */
+    width: 250px; /* 设置容器宽度 */
+}
+
+/* 标题样式 */
+h2 {
+    margin-bottom: 20px;
+}
+
+/* 输入框样式 */
+.flat-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none; /* 移除默认的输入框边框样式 */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-bottom: 10px; /* 添加底部间距 */
+}
+
+/* 输入框悬浮状态样式 */
+.flat-input:hover {
+    border-color: #333;
+}
+
+/* 输入框聚焦状态样式 */
+.flat-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.5);
+}
+
+/* 标签样式 */
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* 提交按钮样式 */
+.flat-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* 提交按钮悬浮状态样式 */
+.flat-button:hover {
+    background-color: #0056b3;
+}
+
+/* 归零按钮样式 */
+.reset-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+	margin-left: 10px; /* 添加右侧间距 */
+}
+
+/* 归零按钮悬浮状态样式 */
+.reset-button:hover {
+    background-color: #c82333;
+}
+
+/* 按钮容器样式 */
+.button-container {
+    display: flex;
+    justify-content: space-between; /* 让按钮水平排列并平均分配空间 */
+    align-items: center;
+    margin-top: 10px; /* 添加顶部间距 */
+}
+
+/* 提交按钮之间的间隔样式 */
+.button-spacing {
+    width: 20px; /* 间隔宽度 */
+}
+
+/* 单独的重置按钮容器样式 */
+.reset-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* 居中按钮容器样式 */
+.center-button-container {
+    display: flex;
+    justify-content: center; /* 让按钮水平居中 */
+}

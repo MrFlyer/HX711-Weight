@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>扁平化风格表单</title>
+</head>
+<body>
+    <div class="form-container">
+        <h2>WiFi设置</h2>
+        <form>
+            <div class="input-container">
+                <label for="wifi-name">WiFi名称</label>
+                <input type="text" id="wifi-name" class="flat-input" placeholder="请输入WiFi名称">
+            </div>
+            <div class="input-container">
+                <label for="wifi-password">WiFi密码</label>
+                <input type="password" id="wifi-password" class="flat-input" placeholder="请输入WiFi密码">
+            </div>
+            <div class="center-button-container">
+                <button type="submit" class="flat-button">连接WiFi</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>MQTT设置</h2>
+        <form>
+            <div class="input-container">
+                <label for="mqtt-server-ip">MQTT服务器IP</label>
+                <input type="text" id="mqtt-server-ip" class="flat-input" placeholder="请输入MQTT服务器IP">
+            </div>
+            <div class="input-container">
+                <label for="mqtt-server-port">服务器端口号</label>
+                <input type="text" id="mqtt-server-port" class="flat-input" placeholder="请输入服务器端口号">
+            </div>
+            <div class="center-button-container">
+                <button type="submit" class="flat-button">链接MQTT</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>耗材管理</h2>
+        <form>
+            <div class="input-container">
+                <label for="rack-weight">料架重量</label>
+                <input type="text" id="rack-weight" class="flat-input" placeholder="请输入料架重量">
+            </div>
+            <div class="input-container">
+                <label for="spool-weight">线轴重量</label>
+                <input type="text" id="spool-weight" class="flat-input" placeholder="请输入线轴重量">
+            </div>
+            <div class="center-button-container">
+                <button type="submit" class="flat-button">提交</button>
+                <button type="button" class="reset-button">归零耗材称重</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
