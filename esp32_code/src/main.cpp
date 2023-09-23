@@ -3,7 +3,7 @@
 #include <PubSubClient.h>
 
 #define CALIBRATION_FACTOR 420.88 //这里需要换成你自己测量之后的数据 测算公式 ： 结果 / 已知物体重量
-#define setCalibration true
+#define setCalibration false
 
 // HX711 circuit wiring
 const int LOADCELL_DOUT_PIN = 5;
@@ -44,6 +44,9 @@ HX711 scale;
 
     void setup()
     {
+        //计划在这里加一个灯来显示是否开始归零称重称
+
+
         // 初始化HX711
         scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
         scale.set_scale(CALIBRATION_FACTOR);
@@ -54,12 +57,14 @@ HX711 scale;
         WiFi.begin(ssid, password);
 
         // 链接wifi
+        Serial.println("Connectingto WiFi..");
         while (WiFi.status() != WL_CONNECTED)
         {
             delay(500);
-            Serial.println("Connectingto WiFi..");
+            Serial.print("...");
         }
         Serial.println("Connectedto the WiFi network");
+
         delay(1000);
         // 链接mqtt服务器
         client.setServer(mqttServer, mqttPort);
@@ -115,7 +120,7 @@ HX711 scale;
     void loop() {
 
     if (scale.is_ready()) {
-        scale.set_scale();    
+        scale.set_scale();
         Serial.println("Tare... remove any weights from the scale.");
         delay(5000);
         scale.tare();
@@ -125,7 +130,7 @@ HX711 scale;
         long reading = scale.get_units(10);
         Serial.print("Result: ");
         Serial.println(reading);
-    } 
+    }
     else {
         Serial.println("HX711 not found.");
     }
