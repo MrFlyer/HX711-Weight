@@ -46,7 +46,7 @@ HX711 scale;
     {
         //计划在这里加一个灯来显示是否开始归零称重称
 
-
+        
         // 初始化HX711
         scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
         scale.set_scale(CALIBRATION_FACTOR);
