@@ -2,26 +2,10 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <EEPROM.h>
+// #include <conf.h>
+#include <conf_myself.h>
 
-#define CALIBRATION_FACTOR 420.88 //这里需要换成你自己测量之后的数据 测算公式 ： 结果 / 已知物体重量
-#define setCalibration false
-#define LED1_HX711 13
-#define LED2_WIFI 8
-#define LED3 4
 
-// HX711 circuit wiring
-const int LOADCELL_DOUT_PIN = 5;
-const int LOADCELL_SCK_PIN = 18;
-
-const char *ssid = "你的WIFI名字";
-const char *password = "你的WIFI密码";
-const char *mqttServer = "你的MQTT服务器地址";
-const int mqttPort = 1883; //你的MQTT服务器端口
-const char *mqttUser = "你的MQTT登录用户名";
-const char *mqttPassword = "你的MQTT登录密码";
-const char *mqtt_topic = "data";
-
-char message_data[10];
 
 HX711 scale;
 
@@ -55,6 +39,10 @@ HX711 scale;
         pinMode(LED1_HX711,OUTPUT);
         pinMode(LED2_WIFI,OUTPUT);
         pinMode(LED3,OUTPUT);
+        //判断是否为空
+        if (EEPROM.read(10) == NULL){
+            EEPROM.write(10,500);
+        }
 
         //开始初始化HX711，以亮灯为正在初始化
         digitalWrite(LED1_HX711,HIGH);
@@ -63,9 +51,9 @@ HX711 scale;
         scale.set_scale(CALIBRATION_FACTOR);
         scale.tare();
         scale.set_offset(EEPROM.read(10)); //称重偏移
-        digitalWrite(LED1_HX711,LOW); 
+        digitalWrite(LED1_HX711,LOW);
         //初始化成功LED1关闭
-        
+
         //开始初始化WIFI并并且点亮LED2
         digitalWrite(LED2_WIFI,HIGH);
         WiFi.begin(ssid, password);
