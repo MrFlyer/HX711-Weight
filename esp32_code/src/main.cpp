@@ -5,6 +5,9 @@
 
 #define CALIBRATION_FACTOR 420.88 //这里需要换成你自己测量之后的数据 测算公式 ： 结果 / 已知物体重量
 #define setCalibration false
+#define LED1_HX711 13
+#define LED2_WIFI 8
+#define LED3 4
 
 // HX711 circuit wiring
 const int LOADCELL_DOUT_PIN = 5;
@@ -49,17 +52,22 @@ HX711 scale;
         Serial.begin(115200);
         // 启动EEPROM
         EEPROM.begin(1024);
-        //计划在这里加一个灯来显示是否开始归零称重称
+        pinMode(LED1_HX711,OUTPUT);
+        pinMode(LED2_WIFI,OUTPUT);
+        pinMode(LED3,OUTPUT);
 
-        
+        //开始初始化HX711，以亮灯为正在初始化
+        digitalWrite(LED1_HX711,HIGH);
         // 初始化HX711
         scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
         scale.set_scale(CALIBRATION_FACTOR);
         scale.tare();
         scale.set_offset(EEPROM.read(10)); //称重偏移
-
-
-
+        digitalWrite(LED1_HX711,LOW); 
+        //初始化成功LED1关闭
+        
+        //开始初始化WIFI并并且点亮LED2
+        digitalWrite(LED2_WIFI,HIGH);
         WiFi.begin(ssid, password);
 
         // 链接wifi
@@ -70,6 +78,9 @@ HX711 scale;
             Serial.print("...");
         }
         Serial.println("Connectedto the WiFi network");
+
+        //WIFI链接成功关闭LED2
+        digitalWrite(LED2_WIFI,LOW);
 
         delay(1000);
         // 链接mqtt服务器
@@ -90,7 +101,8 @@ HX711 scale;
             }
         }
         delay(1000);
-
+        //全部连接成功点亮LED3表明初始化结束
+        digitalWrite(LED3,HIGH);
     }
 
     void loop()
