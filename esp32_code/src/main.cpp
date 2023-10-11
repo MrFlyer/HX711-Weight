@@ -1,6 +1,7 @@
 #include "HX711.h"
 #include <WiFi.h>
 #include <PubSubClient.h>
+#include <EEPROM.h>
 
 #define CALIBRATION_FACTOR 420.88 //这里需要换成你自己测量之后的数据 测算公式 ： 结果 / 已知物体重量
 #define setCalibration false
@@ -44,6 +45,10 @@ HX711 scale;
 
     void setup()
     {
+        // 开启串口
+        Serial.begin(115200);
+        // 启动EEPROM
+        EEPROM.begin(1024);
         //计划在这里加一个灯来显示是否开始归零称重称
 
         
@@ -51,9 +56,10 @@ HX711 scale;
         scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
         scale.set_scale(CALIBRATION_FACTOR);
         scale.tare();
+        scale.set_offset(EEPROM.read(10)); //称重偏移
 
-        // 开启串口
-        Serial.begin(115200);
+
+
         WiFi.begin(ssid, password);
 
         // 链接wifi
@@ -106,6 +112,7 @@ HX711 scale;
         client.loop();
         client.publish(mqtt_topic, message_data);
         Serial.println(message_data);
+        EEPROM.write(10,reading * 1000);
 
         delay(10000);
     }
