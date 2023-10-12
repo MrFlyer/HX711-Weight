@@ -2,8 +2,8 @@
 #include <WiFi.h>
 #include <PubSubClient.h>
 #include <EEPROM.h>
-// #include <conf.h>
-#include <conf_myself.h>
+#include <conf.h>
+// #include <conf_myself.h>
 
 
 
@@ -40,8 +40,8 @@ HX711 scale;
         pinMode(LED2_WIFI,OUTPUT);
         pinMode(LED3,OUTPUT);
         //判断是否为空
-        if (EEPROM.read(10) == NULL){
-            EEPROM.write(10,500);
+        if (EEPROM.read(10) == 0){
+            EEPROM.write(10,(uint8_t)500);
         }
 
         //开始初始化HX711，以亮灯为正在初始化
